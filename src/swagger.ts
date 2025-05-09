@@ -1,0 +1,23 @@
+import { Options } from 'swagger-jsdoc';
+
+export const swaggerOptions: Options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'ExpressJS Jobs API',
+      version: '1.0.0',
+      description: 'APIs for user and admin job operations',
+    },
+    // components: {
+    //   securitySchemes: {
+    //     BearerAuth: {
+    //       type: 'http',
+    //       scheme: 'bearer',
+    //       bearerFormat: 'JWT',
+    //     }
+    //   }
+    // },
+    // security: [{ BearerAuth: [] }],
+  },
+  apis: ['./src/routes/*.ts'],
+};
