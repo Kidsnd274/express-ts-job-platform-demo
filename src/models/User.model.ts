@@ -1,4 +1,4 @@
-export type Role = 'user' | 'admin';
+export type UserRole = 'user' | 'admin';
 
 export interface User {
     id: number;
@@ -6,5 +6,5 @@ export interface User {
     firstName: string;
     lastName: string;
     passwordHash: string;
-    role: Role;
+    role: UserRole;
 }
