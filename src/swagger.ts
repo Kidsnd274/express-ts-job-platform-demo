@@ -19,5 +19,5 @@ export const swaggerOptions: Options = {
     // },
     // security: [{ BearerAuth: [] }],
   },
-  apis: ['./src/routes/*.ts'],
+  apis: ['./src/routes/api/*.ts', './src/routes/api/admin/*.ts'],
 };
