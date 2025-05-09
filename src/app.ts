@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from 'express';
 
-const app: Express = express();
+const app = express();
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello World!");
-})
+const userRouter = require('./routes/api/user');
+
+app.use('/api/user', userRouter);
 
 export default app;
