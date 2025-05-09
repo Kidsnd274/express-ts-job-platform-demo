@@ -1,20 +1,9 @@
+import { Router } from "express";
 import { getApplications, getProfile } from "../../controllers/user";
 
-const express = require('express');
-const router = express.Router();
+const router = Router();
 
 // Restrict to authenticated users here
-
-/**
- * @openapi
- * /api/user/profile:
- *   get:
- *     summary: Retrieve the current user’s profile
- *     responses:
- *       200:
- *         description: The user profile object
- */
-router.get('/profile', getProfile);
 
 /**
  * @openapi
@@ -27,4 +16,15 @@ router.get('/profile', getProfile);
  */
 router.get('/application', getApplications);
 
-module.exports = router;
+/**
+ * @openapi
+ * /api/user/profile:
+ *   get:
+ *     summary: Retrieve the current user’s profile
+ *     responses:
+ *       200:
+ *         description: The user profile object
+ */
+router.get('/profile', getProfile);
+
+export default router;

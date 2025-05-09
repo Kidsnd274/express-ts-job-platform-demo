@@ -17,7 +17,7 @@ export function getApplications(req: Request, res: Response) {
     
     const user = Database.findUserById(userId);
     if (!user) {
-        return res.status(404).json({ error: "User not found"});
+        res.status(404).json({ error: "User not found"});
     }
 
     const applications = Database.getApplicationsWithUserId(userId);
