@@ -64,24 +64,8 @@ const router = Router();
  *                   example: Doe
  *       400:
  *         description: Missing required fields
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Missing required fields
  *       409:
  *          description: Email address already taken
- *          content:
- *            application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Email address already taken
  */
 router.post('/register', registerUser);
 
@@ -129,24 +113,8 @@ router.post('/register', registerUser);
  *                   example: Login successful
  *       400:
  *         description: Missing email or password
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Missing email or password
  *       401:
  *         description: Invalid credentials
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Invalid credentials
  */
 router.post('/login', loginUser);
 
