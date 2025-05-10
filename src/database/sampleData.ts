@@ -39,7 +39,7 @@ async function createMockUsers() {
             user.firstName,
             user.lastName,
             passwordHash,
-            "user"
+            "user"  // Default to regular "user" role
         );
     }
     console.log(`Inserted ${MOCK_USERS.length} mock users`)
@@ -60,12 +60,14 @@ function createMockJobs() {
     console.log(`Inserted ${MOCK_JOBS.length} mock jobs`);
 }
 
+// Main function for app.ts to call
 export async function createMockData() {
     await createAdminUser();
     createMockUsers();
     createMockJobs();
 }
 
+// Mock Data Below
 const MOCK_USERS: MockUser[] = [{email:"gdeeks0@state.gov",firstName:"Gifford",lastName:"Deeks",password:"fF6EQ!mFi"},
     {email:"itivenan1@taobao.com",firstName:"Ilyssa",lastName:"Tivenan",password:"fO4{htvK`b(%"},
     {email:"cwoodgate2@army.mil",firstName:"Carmine",lastName:"Woodgate",password:"dS8TI4mpq`z"},

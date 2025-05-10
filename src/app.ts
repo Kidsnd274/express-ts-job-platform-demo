@@ -13,7 +13,7 @@ import { createMockData } from './database/sampleData';
 
 const app = express();
 
-// Insert Mock Data to Database, remove in production
+// Insert Mock Data to Database (remove in production)
 createMockData();
 
 // Swagger

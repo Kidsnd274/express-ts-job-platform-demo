@@ -29,6 +29,7 @@ export function applyToJob(req: Request, res: Response) {
     const id = Number(req.params.id);
     const jobDetails = Database.findJobById(id);
 
+    // Check if job exists
     if (!jobDetails) {
         res.status(404).json({ error: "Invalid Job ID" });
         return;
@@ -42,6 +43,7 @@ export function applyToJob(req: Request, res: Response) {
         return;
     }
 
+    // Check if user already applied to the same job
     const alreadyApplied = Database
         .getApplicationWithUserIdAndJobId(authUser.id, jobDetails.id)
         .length > 0;
@@ -76,12 +78,13 @@ export function createJob(req: Request, res: Response) {  // Admin required
         imageUrl?: string
     }
 
+    // Check for missing fields
     if (!title || !description || !company || salary == null) {
         res.status(400).json({ error: "Missing required fields" });
         return;
     }
 
-    const img = imageUrl?.trim() || "";
+    const img = imageUrl?.trim() || "";  // If imageUrl doesn't exist, replace with empty string
 
     const createdJob = Database.createJob(
         title, description, company, salary, true, new Date().toISOString(), img);

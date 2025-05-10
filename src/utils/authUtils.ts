@@ -11,6 +11,7 @@ export function createToken(user: User): string {
     return token;
 }
 
+// Verify if the token is valid and returns the User who owns it
 export function verifyToken(token: string): User {
     const payload = jwt.verify(token, JWT_SECRET) as {
         id: number;

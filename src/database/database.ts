@@ -3,6 +3,9 @@ import { Job } from "../models/Job.model";
 import { Application, ApplicationStatus } from "../models/Application.model";
 
 // Database Implementation that stores everything in memory for demo purposes
+// Can drop in some Database connection component instead to use an actually database
+
+// Use counters for incrementing IDs
 const users: User[] = [];
 let nextUserId = 1;
 
@@ -68,7 +71,7 @@ export const Database = {
     },
 
     listJobs() {
-        return [...jobs];
+        return [...jobs];  // Create a shadow copy of the array
     },
 
     findJobById(id: number): Job | undefined {

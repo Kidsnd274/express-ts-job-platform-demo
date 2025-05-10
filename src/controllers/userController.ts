@@ -6,6 +6,7 @@ export function getApplications(req: Request, res: Response) {
     const authUser = (req as AuthRequest).user;
     const userId = authUser.id;
     const user = Database.findUserById(userId);
+    
     if (!user) {  // Should never end up here
         res.status(400).json({ error: "User not found"});
         return;
@@ -13,8 +14,9 @@ export function getApplications(req: Request, res: Response) {
 
     const applications = Database.getApplicationsWithUserId(userId);
 
+    // Format output to relevant values
     const reducedList = applications.map(app => {
-        // If can't find job (maybe deleted) use placeholder values
+        // If can't find job (if previously deleted) use placeholder values
         const job = Database.findJobById(app.jobId) ?? {
             id: app.jobId,
             title: "Unknown Title",
@@ -41,12 +43,13 @@ export function getProfile(req: Request, res: Response) {
     const authUser = (req as AuthRequest).user;
     const userId = authUser.id;
     const user = Database.findUserById(userId);
+    
     if (!user) {  // Should never end up here
         res.status(400).json({ error: "User not found"});
         return;
     }
 
-    // Destructure Relevant Details
+    // Destructure Only Relevant Details
     const { email, firstName, lastName } = user;
     res.json({ email, firstName, lastName });
 }
