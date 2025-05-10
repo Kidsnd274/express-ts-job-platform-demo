@@ -8,6 +8,8 @@ import jobRouter from './routes/api/job';
 import adminJobRouter from './routes/api/admin/job';
 import authRouter from './routes/api/auth';
 
+import { requireAdmin, requireAuth } from './middleware/auth';
+
 const app = express();
 
 // Swagger
@@ -18,9 +20,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 
 // Routes
-app.use('/api/user', userRouter);
-app.use('/api/job', jobRouter);
-app.use('/api/admin/job', adminJobRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/user', requireAuth, userRouter);
+app.use('/api/job', requireAuth, jobRouter);
+app.use('/api/admin/job', requireAuth, requireAdmin, adminJobRouter);
+
 
 export default app;
