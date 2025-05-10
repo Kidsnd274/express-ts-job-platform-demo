@@ -1,40 +1,53 @@
 import { Request, Response } from 'express';
 import { Database } from '../database/database';
 import { User } from '../models/User.model';
+import { AuthRequest } from '../middleware/auth';
 
 export function getProfile(req: Request, res: Response) {
-    const userId: number = 1; // Temp, get user ID from session middleware
-    const user: User | undefined = Database.findUserById(userId);
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(400).json();
+    const authUser = (req as AuthRequest).user;
+    const userId = authUser.id;
+    const user = Database.findUserById(userId);
+    if (!user) {  // Should never end up here
+        res.status(400).json({ error: "User not found"});
+        return;
     }
-};
+
+    // Destructure Relevant Details
+    const { email, firstName, lastName } = user;
+    res.json({ email, firstName, lastName });
+}
 
 export function getApplications(req: Request, res: Response) {
-    const userId: number = 1; // Temp get user ID from session middleware
-    
+    const authUser = (req as AuthRequest).user;
+    const userId = authUser.id;
     const user = Database.findUserById(userId);
-    if (!user) {
-        res.status(404).json({ error: "User not found"});
+    if (!user) {  // Should never end up here
+        res.status(400).json({ error: "User not found"});
+        return;
     }
 
     const applications = Database.getApplicationsWithUserId(userId);
-    const detailedList = applications.map(app => {
-        const job = Database.findJobById(app.jobId);
+
+    const reducedList = applications.map(app => {
+        // If can't find job (maybe deleted) use placeholder values
+        const job = Database.findJobById(app.jobId) ?? {
+            id: app.jobId,
+            title: "Unknown Title",
+            company: "Unknown Company",
+            salary: 0,
+            active: false,
+            postedAt: new Date(0).toISOString(),
+            imageUrl: ""
+        }
+
+        const { id, title, company, salary, active, postedAt, imageUrl } = job;
+
         return {
-            ...app,
-            job: job ?? {
-                id: app.jobId,
-                title: 'Unknown Job',
-                description: 'Unknown',
-                company: 'unknown',
-                salary: 0,
-                active: false,
-                postedAt: new Date(0).toISOString(),
-            }
+            appliedAt: app.appliedAt,
+            status: app.status,
+            job: { id, title, company, salary, active, postedAt, imageUrl }
         };
     })
-    res.json(detailedList);
+
+    res.json(reducedList);
 };

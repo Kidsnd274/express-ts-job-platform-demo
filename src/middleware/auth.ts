@@ -42,7 +42,7 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction) {
     if (!authUser) {
         // Shouldn't go here if requireAuth ran before
         res.status(401).json({ error: "Authentication required" });
-        return
+        return;
     }
 
     const role = authUser.role;

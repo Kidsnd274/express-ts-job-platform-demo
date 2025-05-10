@@ -54,7 +54,7 @@ function createMockJobs() {
             job.company,
             job.salary,
             true,
-            Date.now().toLocaleString(),
+            new Date().toISOString(),
             job.imageUrl
         );
     });

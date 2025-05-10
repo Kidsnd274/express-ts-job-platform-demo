@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { createJob, deleteJob, getJobListings } from "../../../controllers/jobController";
+import { createJob, deleteJob, getAdminJobListings } from "../../../controllers/jobController";
 
 const router = Router();
 
 // Job Routes for Admins
-
-// Restrict routes to admins here using middleware (check session or something i dunno)
 
 /**
  * @openapi
@@ -16,7 +14,7 @@ const router = Router();
  *       200:
  *         description: Array of applications, each with its job
  */
-router.get('/', getJobListings);  // Maybe I'll create another function that returns a lot more info
+router.get('/', getAdminJobListings);
 router.post('/', createJob);
 router.delete('/:id', deleteJob);
 

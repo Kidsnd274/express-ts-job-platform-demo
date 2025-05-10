@@ -107,6 +107,13 @@ export const Database = {
     getApplicationsWithUserId(userId: number): Application[] {
         return applications.filter(app => app.userId === userId);
     },
+
+    // Retrieve applications with userId and jobID (check if exists)
+    getApplicationWithUserIdAndJobId(userId: number, jobId: number): Application[] {
+        return applications.filter(app => {
+            return (app.userId === userId && app.jobId === jobId);
+        })
+    }
 }
 
 // TODO: Remove these dangerous functions
