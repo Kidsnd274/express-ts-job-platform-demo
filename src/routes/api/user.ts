@@ -15,7 +15,7 @@ const router = Router();
  *     security:
  *       - BearerAuth: []
  *     parameters:
- *       - name: Authorization Token
+ *       - name: Authorization
  *         in: header
  *         description: Bearer token in the format `Bearer <token>`
  *         required: true
@@ -66,24 +66,8 @@ const router = Router();
  *                         example: "http://dummyimage.com/236x100.png/ff4444/ffffff"
  *       401:
  *         description: Authentication required or token invalid
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Authentication required"
  *       400:
  *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "User not found"
  */
 router.get('/application', getApplications);
 
@@ -124,24 +108,8 @@ router.get('/application', getApplications);
  *                   example: Doe
  *       401:
  *         description: Authentication required or token invalid
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: Authentication required
  *       400:
  *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: User not found
  */
 router.get('/profile', getProfile);
 

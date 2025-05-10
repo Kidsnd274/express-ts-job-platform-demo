@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Database } from '../database/database';
 import { AuthRequest } from '../middleware/auth';
 
+// ---------- Regular User Job Functions ----------
 export function getJobListings(req: Request, res: Response) {
     const jobList = Database.listJobs();
     const smallerList = jobList.map(({ id, title, company }) => ({
@@ -59,6 +60,8 @@ export function applyToJob(req: Request, res: Response) {
     res.json(application);
 }
 
+
+// ---------- Admin Functions ----------
 export function getAdminJobListings(req: Request, res: Response) {
     const jobList = Database.listJobs();
     res.json(jobList);
