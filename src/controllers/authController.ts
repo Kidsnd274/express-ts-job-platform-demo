@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Database } from '../database/database';
 import { UserRole } from '../models/User.model';
-import { createToken } from '../utils/auth';
+import { createToken } from '../utils/authUtils';
 import bcrypt from 'bcryptjs';
 
 const HASH_ROUNDS: number = 10;

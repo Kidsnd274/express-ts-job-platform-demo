@@ -25,5 +25,4 @@ app.use('/api/user', requireAuth, userRouter);
 app.use('/api/job', requireAuth, jobRouter);
 app.use('/api/admin/job', requireAuth, requireAdmin, adminJobRouter);
 
-
 export default app;
