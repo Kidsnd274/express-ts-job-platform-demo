@@ -43,7 +43,6 @@ async function createMockUsers() {
         );
     }
     console.log(`Inserted ${MOCK_USERS.length} mock users`)
-    console.log(`INFO: Users db now has ${getUserArray().length}`);
 }
 
 function createMockJobs() {
@@ -59,7 +58,6 @@ function createMockJobs() {
         );
     });
     console.log(`Inserted ${MOCK_JOBS.length} mock jobs`);
-    console.log(`INFO: Jobs db now has ${getJobArray().length}`);
 }
 
 export async function createMockData() {

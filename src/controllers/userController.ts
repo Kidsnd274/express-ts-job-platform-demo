@@ -1,21 +1,6 @@
 import { Request, Response } from 'express';
 import { Database } from '../database/database';
-import { User } from '../models/User.model';
 import { AuthRequest } from '../middleware/auth';
-
-export function getProfile(req: Request, res: Response) {
-    const authUser = (req as AuthRequest).user;
-    const userId = authUser.id;
-    const user = Database.findUserById(userId);
-    if (!user) {  // Should never end up here
-        res.status(400).json({ error: "User not found"});
-        return;
-    }
-
-    // Destructure Relevant Details
-    const { email, firstName, lastName } = user;
-    res.json({ email, firstName, lastName });
-}
 
 export function getApplications(req: Request, res: Response) {
     const authUser = (req as AuthRequest).user;
@@ -51,3 +36,17 @@ export function getApplications(req: Request, res: Response) {
 
     res.json(reducedList);
 };
+
+export function getProfile(req: Request, res: Response) {
+    const authUser = (req as AuthRequest).user;
+    const userId = authUser.id;
+    const user = Database.findUserById(userId);
+    if (!user) {  // Should never end up here
+        res.status(400).json({ error: "User not found"});
+        return;
+    }
+
+    // Destructure Relevant Details
+    const { email, firstName, lastName } = user;
+    res.json({ email, firstName, lastName });
+}
