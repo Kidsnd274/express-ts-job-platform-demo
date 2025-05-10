@@ -8,15 +8,15 @@ export const swaggerOptions: Options = {
       version: '1.0.0',
       description: 'APIs for user and admin job operations',
     },
-    // components: {
-    //   securitySchemes: {
-    //     BearerAuth: {
-    //       type: 'http',
-    //       scheme: 'bearer',
-    //       bearerFormat: 'JWT',
-    //     }
-    //   }
-    // },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        }
+      }
+    },
     // security: [{ BearerAuth: [] }],
   },
   apis: ['./src/routes/api/*.ts', './src/routes/api/admin/*.ts'],

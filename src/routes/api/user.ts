@@ -9,10 +9,81 @@ const router = Router();
  * @openapi
  * /api/user/application:
  *   get:
- *     summary: List applications for the current user
+ *     tags:
+ *       - User
+ *     summary: List applied jobs (applications) for the current user
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: Authorization Token
+ *         in: header
+ *         description: Bearer token in the format `Bearer <token>`
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
  *     responses:
  *       200:
- *         description: Array of applications, each with its job
+ *         description: Array of the user’s job applications
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   appliedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-05-10T08:36:28.105Z"
+ *                   status:
+ *                     type: string
+ *                     example: "pending"
+ *                   job:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 5
+ *                       title:
+ *                         type: string
+ *                         example: "Professor"
+ *                       company:
+ *                         type: string
+ *                         example: "Miboo"
+ *                       salary:
+ *                         type: number
+ *                         example: 106460
+ *                       active:
+ *                         type: boolean
+ *                         example: true
+ *                       postedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-05-10T09:21:45.387Z"
+ *                       imageUrl:
+ *                         type: string
+ *                         example: "http://dummyimage.com/236x100.png/ff4444/ffffff"
+ *       401:
+ *         description: Authentication required or token invalid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Authentication required"
+ *       400:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "User not found"
  */
 router.get('/application', getApplications);
 
@@ -20,10 +91,57 @@ router.get('/application', getApplications);
  * @openapi
  * /api/user/profile:
  *   get:
- *     summary: Retrieve the current user’s profile
+ *     tags:
+ *       - User
+ *     summary: Retrieve the authenticated user’s profile
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         description: Bearer token in the format `Bearer <token>`
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
  *     responses:
  *       200:
- *         description: The user profile object
+ *         description: The user’s profile details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                   example: user@example.com
+ *                 firstName:
+ *                   type: string
+ *                   example: Jane
+ *                 lastName:
+ *                   type: string
+ *                   example: Doe
+ *       401:
+ *         description: Authentication required or token invalid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Authentication required
+ *       400:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: User not found
  */
 router.get('/profile', getProfile);
 

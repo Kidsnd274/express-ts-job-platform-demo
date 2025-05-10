@@ -1,5 +1,5 @@
 import { hashPassword } from "../utils/passwordUtils";
-import { Database, getJobArray, getUserArray } from "./database";
+import { Database } from "./database";
 
 // Demo component used to add in sample data to the database
 
