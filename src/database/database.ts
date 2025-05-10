@@ -108,3 +108,12 @@ export const Database = {
         return applications.filter(app => app.userId === userId);
     },
 }
+
+// TODO: Remove these dangerous functions
+export function getUserArray(): User[] {
+    return users;
+}
+
+export function getJobArray(): Job[] {
+    return jobs;
+}

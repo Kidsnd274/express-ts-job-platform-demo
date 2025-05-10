@@ -9,8 +9,12 @@ import adminJobRouter from './routes/api/admin/job';
 import authRouter from './routes/api/auth';
 
 import { requireAdmin, requireAuth } from './middleware/auth';
+import { createMockData } from './database/sampleData';
 
 const app = express();
+
+// Insert Mock Data to Database, remove in production
+createMockData();
 
 // Swagger
 const swaggerDocument = swaggerJsdoc(swaggerOptions);

@@ -2,9 +2,7 @@ import { Request, Response } from 'express';
 import { Database } from '../database/database';
 import { UserRole } from '../models/User.model';
 import { createToken } from '../utils/authUtils';
-import bcrypt from 'bcryptjs';
-
-const HASH_ROUNDS: number = 10;
+import { checkPassword, hashPassword } from '../utils/passwordUtils';
 
 export async function registerUser(req: Request, res: Response) {
     const { email, firstName, lastName, password } = req.body as {
@@ -27,7 +25,7 @@ export async function registerUser(req: Request, res: Response) {
         return;
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await hashPassword(password);
 
     const newUser = Database.createUser(
         email, firstName, lastName, passwordHash, 'user' as UserRole
@@ -60,7 +58,7 @@ export async function loginUser(req: Request, res: Response) {
     }
 
     // Check if provided password is valid
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+    const passwordMatch = await checkPassword(password, user);
     if (!passwordMatch) {
         res.status(401).json({ error: "Invalid credentials" });
         return;
